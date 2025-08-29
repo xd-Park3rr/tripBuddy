@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.tripbuddy.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.example.tripbuddy.ui.gallery.GalleryFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_gallery" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.tripbuddy.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_trip_planner"
+        android:name="com.example.tripbuddy.ui.trip.TripPlannerFragment"
+        android:label="@string/menu_trip_planner"
+        tools:layout="@layout/fragment_trip_planner" />
+
+    <fragment
+        android:id="@+id/nav_budget_summary"
+        android:name="com.example.tripbuddy.ui.budget.BudgetSummaryFragment"
+        android:label="@string/menu_budget_summary"
+        tools:layout="@layout/fragment_budget_summary" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.tripbuddy.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>

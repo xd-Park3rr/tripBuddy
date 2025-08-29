@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.home.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Hero section -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardUseCompatPadding="true"
+            app:strokeColor="@color/teal_700"
+            app:strokeWidth="1dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+
+                <ImageView
+                    android:id="@+id/iv_hero"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/bg_travel_beach" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#80000000"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_welcome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/welcome_message"
+                        android:textColor="@android:color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium" />
+
+                    <TextView
+                        android:id="@+id/tv_tagline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_tagline"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        android:paddingTop="4dp" />
+
+                    <TextView
+                        android:id="@+id/tv_next_trip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_next_trip_fallback"
+                        android:textColor="@android:color/white"
+                        android:textSize="13sp"
+                        android:paddingTop="2dp" />
+                </LinearLayout>
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Quick stats -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <TextView
+                        android:id="@+id/tv_stat_trips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trips"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tv_stat_trips_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Budget Used"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tv_stat_budget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$0"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Primary actions -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_plan_trip"
+                style="@style/Widget.Material3.Button.Filled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/home_cta_plan_trip" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_open_gallery"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/home_cta_open_gallery" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_view_budget"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/home_cta_view_budget" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

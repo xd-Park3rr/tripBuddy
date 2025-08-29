@@ -1,0 +1,27 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.TripBuddy" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Filled</item>
+        <item name="materialButtonStyle">@style/Widget.Material3.Button</item>
+        <!-- Travel palette mapping -->
+        <item name="colorPrimary">@color/tb_ocean</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/tb_sunset</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">@color/tb_night</item>
+        <item name="colorOnSurface">@color/white</item>
+    </style>
+
+    <style name="Theme.TripBuddy.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.TripBuddy.AppBarOverlay" parent="ThemeOverlay.Material3.ActionBar" />
+
+    <style name="Theme.TripBuddy.PopupOverlay" parent="ThemeOverlay.Material3" />
+</resources>
