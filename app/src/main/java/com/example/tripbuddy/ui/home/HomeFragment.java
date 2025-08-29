@@ -18,11 +18,10 @@ import com.example.tripbuddy.util.DateUtils;
 import com.google.android.material.transition.MaterialFadeThrough;
 import com.kizitonwose.calendar.view.CalendarView;
 import com.kizitonwose.calendar.view.ViewContainer;
+import com.kizitonwose.calendar.view.MonthDayBinder;
 import com.kizitonwose.calendar.core.CalendarDay;
 import com.kizitonwose.calendar.core.CalendarMonth;
-import com.kizitonwose.calendar.core.DayOwner;
-import com.kizitonwose.calendar.core.OutDateStyle;
-import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale;
+import com.kizitonwose.calendar.core.DayPosition;
 import com.example.tripbuddy.PrefsManager;
 import com.example.tripbuddy.data.TripRepository;
 
@@ -113,17 +112,11 @@ public class HomeFragment extends Fragment {
 
     private void setupCalendar(CalendarView calendarView) {
         java.time.YearMonth currentMonth = java.time.YearMonth.now();
-        java.time.DayOfWeek firstDayOfWeek = firstDayOfWeekFromLocale();
+        java.time.DayOfWeek firstDayOfWeek = java.time.temporal.WeekFields.of(java.util.Locale.getDefault()).getFirstDayOfWeek();
         // Show 12 months back and 12 months forward.
         java.time.YearMonth startMonth = currentMonth.minusMonths(12);
         java.time.YearMonth endMonth = currentMonth.plusMonths(12);
-        calendarView.setMonthScrollListener(month -> {
-            // Update month indicators when month changes
-            java.time.LocalDate anchor = month.getYearMonth().atDay(15);
-            long millis = java.util.Date.from(anchor.atStartOfDay(java.time.ZoneOffset.UTC)).getTime();
-            updateMonthIndicators(millis);
-            return null;
-        });
+    // We update the month indicators initially and on day clicks.
         calendarView.setup(startMonth, endMonth, firstDayOfWeek);
         calendarView.scrollToMonth(currentMonth);
 
@@ -157,8 +150,8 @@ public class HomeFragment extends Fragment {
                 super(view);
                 textView = view.findViewById(R.id.tvDayText);
                 view.setOnClickListener(v -> {
-                    if (date != null && (date.getMonthValue() == calendarView.getMonth().getYearMonth().getMonthValue())) {
-                        long millis = java.util.Date.from(date.atStartOfDay(java.time.ZoneOffset.UTC)).getTime();
+                    if (date != null) {
+                        long millis = java.util.Date.from(date.atStartOfDay(java.time.ZoneOffset.UTC).toInstant()).getTime();
                         renderTripsForDay(millis);
                         updateMonthIndicators(millis);
                         binding.tvSelectedDay.setText(getString(R.string.selected_day_prefix, com.example.tripbuddy.util.DateUtils.formatYMD(millis)));
@@ -167,7 +160,7 @@ public class HomeFragment extends Fragment {
             }
         }
 
-        calendarView.setDayBinder(new com.kizitonwose.calendar.view.DayBinder<DayViewContainer>() {
+        calendarView.setDayBinder(new MonthDayBinder<DayViewContainer>() {
             @NonNull
             @Override
             public DayViewContainer create(@NonNull View view) {
@@ -182,9 +175,9 @@ public class HomeFragment extends Fragment {
 
                 // Reset to default background/text
                 tv.setBackground(requireContext().getDrawable(R.drawable.bg_calendar_day_default));
-                tv.setTextColor(getResources().getColor(android.R.color.secondary_text_dark));
+                // Use default theme color from layout for non-highlighted days.
 
-                if (day.getOwner() == DayOwner.THIS_MONTH) {
+                if (day.getPosition() == DayPosition.MonthDate) {
                     // Highlight booked days
                     if (orangeDays.contains(container.date)) {
                         android.graphics.drawable.GradientDrawable gd = new android.graphics.drawable.GradientDrawable();
