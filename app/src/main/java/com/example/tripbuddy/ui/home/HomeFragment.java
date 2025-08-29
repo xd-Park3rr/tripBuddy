@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.example.tripbuddy.R;
 import com.example.tripbuddy.databinding.FragmentHomeBinding;
 import com.google.android.material.transition.MaterialFadeThrough;
@@ -35,17 +36,30 @@ public class HomeFragment extends Fragment {
         binding.btnViewBudget.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.nav_budget_summary));
 
         // Populate quick stats
-    TripRepository repo = new TripRepository(requireContext());
-    int trips = repo.getTripCount();
-    double spent = repo.getTotalSpent();
-    binding.tvStatTripsValue.setText(String.valueOf(trips));
-    binding.tvStatBudget.setText(String.format("$%.2f", spent));
+        TripRepository repo = new TripRepository(requireContext());
+        int trips = repo.getTripCount();
+        double spent = repo.getTotalSpent();
+        binding.tvStatTripsValue.setText(String.valueOf(trips));
+        binding.tvStatBudget.setText(String.format("$%.2f", spent));
 
         String next = repo.getNextUpcomingTripDestination();
         if (next != null && !next.isEmpty()) {
             binding.tvNextTrip.setText(getString(R.string.home_next_trip_prefix) + " " + next);
         } else {
             binding.tvNextTrip.setText(getString(R.string.home_next_trip_fallback));
+        }
+
+        // Load latest trip cover image into hero with Glide, fallback to default
+        String latestImage = repo.getLatestImageUri();
+        if (latestImage != null && !latestImage.isEmpty()) {
+            Glide.with(this)
+                    .load(latestImage)
+                    .placeholder(R.drawable.bg_travel_beach)
+                    .error(R.drawable.bg_travel_beach)
+                    .centerCrop()
+                    .into(binding.ivHero);
+        } else {
+            binding.ivHero.setImageResource(R.drawable.bg_travel_beach);
         }
         return root;
     }

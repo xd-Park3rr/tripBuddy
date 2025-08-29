@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.recyclerview)
     implementation(libs.splashscreen)
+    implementation(libs.glide)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

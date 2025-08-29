@@ -126,6 +126,17 @@ public class TripRepository {
         return null;
     }
 
+    public String getLatestImageUri() {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor c = db.query(TripBuddyDbHelper.T_TRIP_IMAGES,
+                new String[]{"image_uri"},
+                null, null, null, null, "created_at DESC", "1");
+        try {
+            if (c.moveToFirst()) return c.getString(0);
+        } finally { c.close(); }
+        return null;
+    }
+
     public String getNextUpcomingTripDestination() {
         // Simple heuristic: latest created trip's destination
         SQLiteDatabase db = helper.getReadableDatabase();
