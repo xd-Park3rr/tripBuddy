@@ -28,7 +28,11 @@ import com.example.tripbuddy.R;
 import com.example.tripbuddy.data.TripRepository;
 import com.example.tripbuddy.data.models.Expense;
 import com.example.tripbuddy.data.models.Trip;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.transition.MaterialFadeThrough;
+import androidx.core.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -80,7 +84,14 @@ public class TripPlannerFragment extends Fragment {
             ivCoverPreview.setImageDrawable(null);
         });
 
-        v.findViewById(R.id.btn_add_expense).setOnClickListener(view -> addManualExpense());
+    v.findViewById(R.id.btn_add_expense).setOnClickListener(view -> addManualExpense());
+
+    // Hook date range picker for start/end fields
+    View.OnClickListener dateClicker = vv -> showDateRangePicker();
+    etStart.setFocusable(false);
+    etEnd.setFocusable(false);
+    etStart.setOnClickListener(dateClicker);
+    etEnd.setOnClickListener(dateClicker);
         // Predefined activities
         initPredefined(v);
         v.findViewById(R.id.btn_save).setOnClickListener(view -> saveTrip(view));
@@ -108,6 +119,26 @@ public class TripPlannerFragment extends Fragment {
         setCheckListener(v, R.id.cb_city_tour, 50);
         setCheckListener(v, R.id.cb_museum_pass, 30);
         setCheckListener(v, R.id.cb_airport_transfer, 25);
+    }
+
+    private void showDateRangePicker() {
+        // Constrain to today forward (optional)
+    CalendarConstraints.Builder constraints = new CalendarConstraints.Builder();
+    long todayUtc = MaterialDatePicker.todayInUtcMilliseconds();
+    constraints.setValidator(DateValidatorPointForward.from(todayUtc));
+        MaterialDatePicker<Pair<Long, Long>> picker = MaterialDatePicker.Builder.dateRangePicker()
+                .setTitleText(R.string.select_trip_dates)
+        .setCalendarConstraints(constraints.build())
+        .setSelection(new androidx.core.util.Pair<>(todayUtc, todayUtc))
+                .build();
+        picker.addOnPositiveButtonClickListener(selection -> {
+            if (selection == null) return;
+            Long start = selection.first;
+            Long end = selection.second;
+            if (start != null) etStart.setText(com.example.tripbuddy.util.DateUtils.formatYMD(start));
+            if (end != null) etEnd.setText(com.example.tripbuddy.util.DateUtils.formatYMD(end));
+        });
+        picker.show(getParentFragmentManager(), "trip_dates");
     }
 
     private void setCheckListener(View v, int id, double cost) {
@@ -166,7 +197,7 @@ public class TripPlannerFragment extends Fragment {
             Expense e = expenses.get(i);
             View row = inflater.inflate(R.layout.row_expense, expenseList, false);
             ((TextView)row.findViewById(R.id.tv_expense_name)).setText(e.name);
-            ((TextView)row.findViewById(R.id.tv_expense_cost)).setText(String.format(Locale.getDefault(), "$%.2f", e.cost));
+            ((TextView)row.findViewById(R.id.tv_expense_cost)).setText(String.format(Locale.getDefault(), "R%.2f", e.cost));
             int index = i;
             row.findViewById(R.id.btn_remove).setOnClickListener(v -> {
                 expenses.remove(index);

@@ -46,6 +46,8 @@ dependencies {
     implementation(libs.recyclerview)
     implementation(libs.splashscreen)
     implementation(libs.glide)
+    // Kizitonwose CalendarView (AndroidX-native, decorator via binders)
+    implementation("com.kizitonwose.calendar:view:2.8.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

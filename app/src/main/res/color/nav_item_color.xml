@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="@color/tb_sunset" android:state_checked="true"/>
-    <item android:color="@android:color/white"/>
+    <item android:state_checked="true" android:color="?attr/colorSecondary"/>
+    <item android:state_enabled="false" android:alpha="0.5" android:color="?attr/colorOnSurface"/>
+    <item android:color="?attr/colorOnSurface"/>
 </selector>
 

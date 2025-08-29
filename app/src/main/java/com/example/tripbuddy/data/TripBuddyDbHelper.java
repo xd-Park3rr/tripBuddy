@@ -6,12 +6,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TripBuddyDbHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "tripbuddy.db";
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 3;
 
     public static final String T_TRIPS = "trips";
     public static final String T_EXPENSES = "expenses";
     public static final String T_MEMORIES = "memories";
     public static final String T_TRIP_IMAGES = "trip_images";
+    public static final String T_USERS = "users";
 
     public TripBuddyDbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -61,6 +62,16 @@ public class TripBuddyDbHelper extends SQLiteOpenHelper {
         "created_at INTEGER, " +
         "FOREIGN KEY(trip_id) REFERENCES trips(id) ON DELETE CASCADE)"
     );
+
+    db.execSQL("CREATE TABLE IF NOT EXISTS " + T_USERS + " (" +
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        "username TEXT UNIQUE NOT NULL, " +
+        "password_hash TEXT NOT NULL, " +
+        "first_name TEXT, " +
+        "last_name TEXT, " +
+        "initials TEXT, " +
+        "created_at INTEGER)"
+    );
     }
 
     @Override
@@ -74,5 +85,15 @@ public class TripBuddyDbHelper extends SQLiteOpenHelper {
                     "created_at INTEGER, " +
                     "FOREIGN KEY(trip_id) REFERENCES trips(id) ON DELETE CASCADE)");
         }
+    if (oldVersion < 3) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + T_USERS + " (" +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "username TEXT UNIQUE NOT NULL, " +
+            "password_hash TEXT NOT NULL, " +
+            "first_name TEXT, " +
+            "last_name TEXT, " +
+            "initials TEXT, " +
+            "created_at INTEGER)");
+    }
     }
 }

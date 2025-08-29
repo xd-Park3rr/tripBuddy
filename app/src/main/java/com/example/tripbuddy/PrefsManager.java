@@ -15,6 +15,8 @@ public class PrefsManager {
     private static final String KEY_LAST_TRIP_ID = "last_trip_id";
     private static final String KEY_GALLERY_SEEDED = "gallery_seeded";
     private static final String KEY_ONBOARDED = "onboarded";
+    private static final String KEY_USER_ID = "user_id";
+    private static final String KEY_LAST_ACTIVE = "last_active";
 
     private final SharedPreferences prefs;
 
@@ -28,6 +30,22 @@ public class PrefsManager {
 
     public void setLoggedIn(boolean value) {
         prefs.edit().putBoolean(KEY_LOGGED_IN, value).apply();
+    }
+
+    public void setUserId(long id) {
+        prefs.edit().putLong(KEY_USER_ID, id).apply();
+    }
+
+    public long getUserId() {
+        return prefs.getLong(KEY_USER_ID, -1);
+    }
+
+    public void setLastActive(long ts) {
+        prefs.edit().putLong(KEY_LAST_ACTIVE, ts).apply();
+    }
+
+    public long getLastActive() {
+        return prefs.getLong(KEY_LAST_ACTIVE, 0);
     }
 
     public int getTripCount() {

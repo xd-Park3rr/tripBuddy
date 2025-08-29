@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.tripbuddy.data.models.Expense;
 import com.example.tripbuddy.data.models.Trip;
+import com.example.tripbuddy.util.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,6 +147,50 @@ public class TripRepository {
             if (c.moveToFirst()) return c.getString(0);
         } finally { c.close(); }
         return null;
+    }
+
+    // New: list all trips (basic fields) sorted by start_date then created_at
+    public List<Trip> getAllTrips() {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor c = db.query(TripBuddyDbHelper.T_TRIPS,
+                new String[]{"id","destination","start_date","end_date","notes","total","discount","total_after_discount","created_at"},
+                null, null, null, null, "start_date ASC, created_at DESC");
+        List<Trip> list = new ArrayList<>();
+        try {
+            while (c.moveToNext()) {
+                Trip t = new Trip();
+                t.id = c.getLong(0);
+                t.destination = c.getString(1);
+                t.startDate = c.getString(2);
+                t.endDate = c.getString(3);
+                t.notes = c.getString(4);
+                t.total = c.getDouble(5);
+                t.discount = c.getDouble(6);
+                t.totalAfterDiscount = c.getDouble(7);
+                t.createdAt = c.getLong(8);
+                list.add(t);
+            }
+        } finally { c.close(); }
+        return list;
+    }
+
+    // New: get trips overlapping a specific day (00:00 - 23:59)
+    public List<Trip> getTripsForDay(long dayUtcMillis) {
+        long startOfDay = DateUtils.startOfDayUtc(dayUtcMillis);
+        long endOfDay = DateUtils.endOfDayUtc(dayUtcMillis);
+        List<Trip> all = getAllTrips();
+        List<Trip> hits = new ArrayList<>();
+        for (Trip t : all) {
+            long s = DateUtils.parseToUtcMillis(t.startDate);
+            long e = DateUtils.parseToUtcMillis(t.endDate);
+            if (s == Long.MIN_VALUE && e == Long.MIN_VALUE) continue;
+            if (s == Long.MIN_VALUE) s = e; // single day fallback
+            if (e == Long.MIN_VALUE) e = s;
+            if (DateUtils.rangesOverlap(startOfDay, endOfDay, s, e)) {
+                hits.add(t);
+            }
+        }
+        return hits;
     }
 }
 

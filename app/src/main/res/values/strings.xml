@@ -50,7 +50,7 @@
     <string name="budget_summary_title">Budget Summary</string>
     <string name="no_trip_summary">No recent trip found.</string>
     <string name="trip_title_format">%1$s (%2$s - %3$s)</string>
-    <string name="budget_line">%1$s: $%2$.2f</string>
+    <string name="budget_line">%1$s: R%2$.2f</string>
     <string name="get_started">Get started</string>
     <string name="tagline_travel_buddy">Your personal travel buddy</string>
     <string name="budget_target">Planned budget</string>
@@ -59,6 +59,7 @@
     <!-- Gallery -->
     <string name="gallery_title">Memories</string>
     <string name="no_photos">No photos yet.</string>
+    <string name="filter_dates">Filter dates</string>
     <string name="add_memory">Add memory</string>
 
     <!-- Settings -->
@@ -74,9 +75,9 @@
     <string name="loyalty_discount_applied">Loyalty discount applied!</string>
 
     <!-- Microcopy and Predefined Activity Labels -->
-    <string name="city_tour_label">City Tour ($50)</string>
-    <string name="museum_pass_label">Museum Pass ($30)</string>
-    <string name="airport_transfer_label">Airport Transfer ($25)</string>
+    <string name="city_tour_label">City Tour (R50)</string>
+    <string name="museum_pass_label">Museum Pass (R30)</string>
+    <string name="airport_transfer_label">Airport Transfer (R25)</string>
     <string name="destination_hint">Where are you headed next?</string>
     
     <!-- Home Enhancements -->
@@ -88,4 +89,11 @@
     <string name="pick_image">Add cover image</string>
     <string name="remove_image">Remove image</string>
     <string name="image_picker_error">Could not pick image</string>
+    
+    <!-- Calendar -->
+    <string name="calendar_title">Trip Calendar</string>
+    <string name="no_trips_on_day">No trips on this day</string>
+    <string name="select_trip_dates">Select trip dates</string>
+    <string name="selected_day_prefix">Selected: %1$s</string>
+    <string name="next_event_prefix">Next: %1$s on %2$s</string>
 </resources>

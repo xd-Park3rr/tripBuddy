@@ -1,19 +1,39 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.TripBuddy" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- System bars -->
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowContentTransitions">true</item>
-        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Filled</item>
-        <item name="materialButtonStyle">@style/Widget.Material3.Button</item>
-        <!-- Travel palette mapping -->
-        <item name="colorPrimary">@color/tb_ocean</item>
+
+        <!-- Brand palette mapping -->
+        <item name="colorPrimary">@color/brand_primary</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/tb_sunset</item>
+        <item name="colorSecondary">@color/brand_green</item>
         <item name="colorOnSecondary">@color/white</item>
-        <item name="colorSurface">@color/tb_night</item>
-        <item name="colorOnSurface">@color/white</item>
+        <item name="colorTertiary">@color/brand_beige</item>
+
+        <!-- Surfaces & text -->
+    <item name="colorSurface">@color/brand_offwhite</item>
+    <item name="colorOnSurface">@color/brand_navy</item>
+        <item name="colorOutline">@color/gray_light</item>
+
+        <!-- Shape: friendly & rounded -->
+        <item name="shapeAppearanceSmallComponent">@style/Shape.Friendly</item>
+        <item name="shapeAppearanceMediumComponent">@style/Shape.Friendly</item>
+        <item name="shapeAppearanceLargeComponent">@style/Shape.Friendly</item>
+
+    <!-- Typography: modern sans-serif throughout -->
+    <item name="textAppearanceBodyLarge">@style/TextAppearance.TripBuddy.Body</item>
+    <item name="textAppearanceBodyMedium">@style/TextAppearance.TripBuddy.Body</item>
+    <item name="textAppearanceBodySmall">@style/TextAppearance.TripBuddy.Body</item>
+    <item name="textAppearanceTitleLarge">@style/TextAppearance.TripBuddy.Title</item>
+    <item name="textAppearanceTitleMedium">@style/TextAppearance.TripBuddy.Title</item>
+    <item name="textAppearanceTitleSmall">@style/TextAppearance.TripBuddy.Title</item>
+
+        <!-- Buttons -->
+        <item name="materialButtonStyle">@style/Widget.TripBuddy.Button</item>
     </style>
 
     <style name="Theme.TripBuddy.NoActionBar">
@@ -21,7 +41,38 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!-- Splash theme for Android 12+ and fallback -->
+    <style name="Theme.TripBuddy.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/brand_offwhite</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_cropped</item>
+        <item name="postSplashScreenTheme">@style/Theme.TripBuddy</item>
+    </style>
+
     <style name="Theme.TripBuddy.AppBarOverlay" parent="ThemeOverlay.Material3.ActionBar" />
 
     <style name="Theme.TripBuddy.PopupOverlay" parent="ThemeOverlay.Material3" />
+
+    <!-- Rounded shape appearance -->
+    <style name="Shape.Friendly" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <!-- Typography styles -->
+    <style name="TextAppearance.TripBuddy.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/brand_navy</item>
+    </style>
+    <style name="TextAppearance.TripBuddy.Title" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/brand_navy</item>
+    </style>
+
+    <!-- Buttons -->
+    <style name="Widget.TripBuddy.Button" parent="Widget.Material3.Button">
+        <item name="shapeAppearance">@style/Shape.Friendly</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:insetTop">8dp</item>
+        <item name="android:insetBottom">8dp</item>
+    </style>
 </resources>

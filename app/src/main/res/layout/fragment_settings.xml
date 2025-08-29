@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_travel_screen">
+    android:background="?attr/colorSurface">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:text="@string/settings_title"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="@color/white"/>
+            android:textColor="?attr/colorOnSurface"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/settings_music"
-                android:textColor="@color/white"/>
+                android:textColor="?attr/colorOnSurface"/>
             <Switch
                 android:id="@+id/sw_music"
                 android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/settings_theme"
-                android:textColor="@color/white"/>
+                android:textColor="?attr/colorOnSurface"/>
             <Spinner
                 android:id="@+id/sp_theme"
                 android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/settings_language"
-                android:textColor="@color/white"/>
+                android:textColor="?attr/colorOnSurface"/>
             <Spinner
                 android:id="@+id/sp_language"
                 android:layout_width="wrap_content"

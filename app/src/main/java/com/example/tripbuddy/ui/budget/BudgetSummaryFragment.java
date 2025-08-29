@@ -61,7 +61,7 @@ public class BudgetSummaryFragment extends Fragment {
         for (Expense e : t.expenses) {
             View row = inf.inflate(R.layout.row_expense, ll, false);
             ((TextView)row.findViewById(R.id.tv_expense_name)).setText(e.name);
-            ((TextView)row.findViewById(R.id.tv_expense_cost)).setText(String.format(Locale.getDefault(), "$%.2f", e.cost));
+            ((TextView)row.findViewById(R.id.tv_expense_cost)).setText(String.format(Locale.getDefault(), "R%.2f", e.cost));
             row.findViewById(R.id.btn_remove).setVisibility(View.GONE);
             ll.addView(row);
         }

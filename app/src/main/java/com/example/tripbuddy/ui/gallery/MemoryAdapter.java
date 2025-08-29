@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tripbuddy.R;
 import com.example.tripbuddy.data.models.Memory;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.List;
 
 public class MemoryAdapter extends RecyclerView.Adapter<MemoryAdapter.VH> {
@@ -36,6 +39,10 @@ public class MemoryAdapter extends RecyclerView.Adapter<MemoryAdapter.VH> {
         notifyDataSetChanged();
     }
 
+    public List<Memory> getCurrentItems() {
+        return new ArrayList<>(items);
+    }
+
     @NonNull @Override public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = inflater.inflate(R.layout.item_memory, parent, false);
         return new VH(v);
@@ -44,18 +51,26 @@ public class MemoryAdapter extends RecyclerView.Adapter<MemoryAdapter.VH> {
     @Override public void onBindViewHolder(@NonNull VH h, int position) {
         Memory m = items.get(position);
         h.title.setText(m.title != null ? m.title : "");
+        // date chip
+        if (m.createdAt > 0) {
+            String ds = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date(m.createdAt));
+            h.date.setText(ds);
+            h.date.setVisibility(View.VISIBLE);
+        } else {
+            h.date.setVisibility(View.GONE);
+        }
         String transitionName = "memory_" + m.id + "_image";
         ViewCompat.setTransitionName(h.image, transitionName);
         // Load image from res name or uri. For simplicity, use resource if prefixed with res:
         if (m.imageUri != null && m.imageUri.startsWith("res:")) {
             String resName = m.imageUri.substring(4);
             int resId = context.getResources().getIdentifier(resName, "drawable", context.getPackageName());
-            if (resId == 0) resId = R.mipmap.ic_launcher;
+            if (resId == 0) resId = R.mipmap.ic_app;
             h.image.setImageResource(resId);
         } else if (m.imageUri != null) {
             h.image.setImageURI(android.net.Uri.parse(m.imageUri));
         } else {
-            h.image.setImageResource(R.mipmap.ic_launcher);
+            h.image.setImageResource(R.mipmap.ic_app);
         }
         h.itemView.setOnClickListener(v -> listener.onClick(m, h.image));
     }
@@ -63,11 +78,12 @@ public class MemoryAdapter extends RecyclerView.Adapter<MemoryAdapter.VH> {
     @Override public int getItemCount() { return items.size(); }
 
     static class VH extends RecyclerView.ViewHolder {
-        ImageView image; TextView title;
+        ImageView image; TextView title; TextView date;
         VH(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.iv_photo);
             title = itemView.findViewById(R.id.tv_title);
+            date = itemView.findViewById(R.id.tv_date);
         }
     }
 }

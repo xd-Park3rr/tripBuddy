@@ -9,6 +9,7 @@ public class TripBuddyApp extends Application {
     public void onCreate() {
         super.onCreate();
         DynamicColors.applyToActivitiesIfAvailable(this);
+    registerActivityLifecycleCallbacks(new com.example.tripbuddy.auth.SessionManager(this));
     }
 }
 

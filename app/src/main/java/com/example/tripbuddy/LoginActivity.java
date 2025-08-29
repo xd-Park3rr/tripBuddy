@@ -22,7 +22,8 @@ public class LoginActivity extends AppCompatActivity {
         if (layoutId != 0) setContentView(layoutId);
         int userId = getResources().getIdentifier("et_username", "id", getPackageName());
         int passId = getResources().getIdentifier("et_password", "id", getPackageName());
-        int btnId = getResources().getIdentifier("btn_login", "id", getPackageName());
+    int btnId = getResources().getIdentifier("btn_login", "id", getPackageName());
+    int signUpId = getResources().getIdentifier("btn_goto_signup", "id", getPackageName());
         username = userId != 0 ? findViewById(userId) : null;
         password = passId != 0 ? findViewById(passId) : null;
         Button login = btnId != 0 ? findViewById(btnId) : null;
@@ -36,13 +37,32 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Enter username and password", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    // Simple demo auth; in real apps validate securely/server-side
+                    com.example.tripbuddy.data.AuthRepository repo = new com.example.tripbuddy.data.AuthRepository(LoginActivity.this);
+                    com.example.tripbuddy.data.AuthRepository.User user = repo.login(u, p);
+                    if (user == null) {
+                        Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    // Require initials to be non-empty and alphabetic before continuing
+                    if (TextUtils.isEmpty(user.initials) || !user.initials.matches("[A-Z]{1,3}")) {
+                        Toast.makeText(LoginActivity.this, "Initials invalid for login", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     PrefsManager prefs = new PrefsManager(LoginActivity.this);
                     prefs.setLoggedIn(true);
+                    prefs.setUserId(user.id);
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(i);
                     finish();
                 }
+            });
+        }
+
+        Button goSignUp = signUpId != 0 ? findViewById(signUpId) : null;
+        if (goSignUp != null) {
+            goSignUp.setOnClickListener(v -> {
+                Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(i);
             });
         }
     }

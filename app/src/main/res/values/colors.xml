@@ -8,11 +8,23 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Travel palette -->
-    <color name="tb_sky">#2196F3</color>        <!-- sky blue -->
-    <color name="tb_ocean">#26C6DA</color>      <!-- turquoise ocean -->
-    <color name="tb_sunset">#FF7043</color>     <!-- warm sunset -->
-    <color name="tb_sand">#F4D4A5</color>       <!-- beach sand -->
-    <color name="tb_forest">#2E7D32</color>     <!-- forest green -->
-    <color name="tb_night">#0D1B2A</color>      <!-- deep night blue -->
+    <!-- Travel palette (legacy) -->
+    <color name="tb_sky">#2196F3</color>
+    <color name="tb_ocean">#26C6DA</color>
+    <color name="tb_sunset">#FF7043</color>
+    <color name="tb_sand">#F4D4A5</color>
+    <color name="tb_forest">#2E7D32</color>
+    <color name="tb_night">#0D1B2A</color>
+
+    <!-- New Brand Palette -->
+    <!-- Primary -->
+    <color name="brand_primary">#4EC5C1</color>   <!-- Turquoise Blue -->
+    <color name="brand_green">#4CAF50</color>     <!-- Fresh Green -->
+    <!-- Secondary -->
+    <color name="brand_beige">#F5E1A4</color>     <!-- Soft Beige/Yellow -->
+    <color name="brand_navy">#2C3E50</color>      <!-- Navy Blue (primary text) -->
+    <!-- Neutrals -->
+    <color name="brand_offwhite">#F8F9FA</color>  <!-- App backgrounds -->
+    <color name="gray_light">#BDC3C7</color>      <!-- Secondary text/borders -->
+    <color name="gray_dark">#7F8C8D</color>       <!-- Secondary text/borders -->
 </resources>

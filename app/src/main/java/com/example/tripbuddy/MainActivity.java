@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_trip_planner, R.id.nav_budget_summary, R.id.nav_settings)
+    mAppBarConfiguration = new AppBarConfiguration.Builder(
+        R.id.nav_home, R.id.nav_gallery,
+        R.id.nav_trip_planner, R.id.nav_budget_summary, R.id.nav_settings)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -45,13 +45,32 @@ public class MainActivity extends AppCompatActivity {
 
     // Bottom navigation removed to keep navigation solely in the sidebar
 
-        // Enhance drawer header: show dynamic trip count
+        // Enhance drawer header: show dynamic trip count and initials
         View header = navigationView.getHeaderView(0);
-        if (header != null) {
+    if (header != null) {
             TextView tvTrips = header.findViewById(R.id.tv_trip_count);
+            TextView tvInitials = header.findViewById(R.id.tv_avatar_initials);
+            TextView tvHeaderTitle = header.findViewById(R.id.tv_header_title);
+            PrefsManager prefs = new PrefsManager(this);
             if (tvTrips != null) {
-                PrefsManager prefs = new PrefsManager(this);
-                tvTrips.setText("Trips: " + prefs.getTripCount());
+                int tripCount = new com.example.tripbuddy.data.TripRepository(this).getTripCount();
+                tvTrips.setText("Trips: " + tripCount);
+            }
+            long uid = prefs.getUserId();
+            com.example.tripbuddy.data.AuthRepository.User u = null;
+            if (uid > 0) {
+                u = new com.example.tripbuddy.data.AuthRepository(this).getUserById(uid);
+            }
+            if (tvInitials != null) {
+                String initials = (u != null && u.initials != null && !u.initials.isEmpty()) ? u.initials : "TB";
+                tvInitials.setText(initials);
+            }
+            if (tvHeaderTitle != null && u != null) {
+                String fullName = (u.firstName != null ? u.firstName : "").trim() +
+                        (u.lastName != null && !u.lastName.isEmpty() ? " " + u.lastName.trim() : "");
+                if (!fullName.trim().isEmpty()) {
+                    tvHeaderTitle.setText(fullName.trim());
+                }
             }
         }
 
@@ -82,5 +101,18 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // If user was auto-logged out while app was in background, route to Login
+        PrefsManager prefs = new PrefsManager(this);
+        if (!prefs.isLoggedIn()) {
+            Intent i = new Intent(this, LoginActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            finish();
+        }
     }
 }

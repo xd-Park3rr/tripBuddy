@@ -3,4 +3,6 @@
     <background android:drawable="@drawable/ic_app_background" />
     <foreground android:drawable="@drawable/ic_app_foreground" />
     <monochrome android:drawable="@drawable/ic_app_foreground" />
+    
+    
 </adaptive-icon>
