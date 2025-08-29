@@ -13,3 +13,12 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Gradle build outputs
+**/build/
+
+# Android Studio project files
+.idea/
+
+# Prevent committing any embedded JDK copies if present
+app/src/main/java/com/example/tripbuddy/oracleJdk-*/
